@@ -1,0 +1,10 @@
+/*
+Title: Weather Observation Station 4
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-4/problem
+Dialect: MySQL / DB2
+*/
+
+Select count(city) - count(distinct city) 
+from station;
