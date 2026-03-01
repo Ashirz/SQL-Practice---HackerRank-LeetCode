@@ -1,0 +1,15 @@
+/*
+Title: Weather-observation-station-12
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-12/problem
+Dialect: MySQL 
+*/
+
+
+
+SELECT DISTINCT CITY
+FROM STATION
+WHERE 
+    CITY REGEXP "^[^aeiou]" AND
+    CITY REGEXP "[^aeiou]$" ;
