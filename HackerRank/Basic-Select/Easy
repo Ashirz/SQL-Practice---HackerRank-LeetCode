@@ -1,3 +1,5 @@
+Basic Select / Advance Select / Aggregation / Basic Join
+
 /*
 Title: Revising the Select Query I
 Platform: HackerRank
@@ -194,7 +196,7 @@ order by employee_id;
 /*
 Title: Type of Triangle
 Platform: HackerRank
-Category: Advanced Select
+Category: Advance Select
 URL: https://www.hackerrank.com/challenges/what-type-of-triangle/problem
 Dialect: MySQL 
 */
@@ -393,4 +395,43 @@ limit 1;
 
 ----------------------------------------------------------------------------------
 
+/*
+Title: Population Census
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/asian-population/problem
+Dialect: MySQL 
+*/
 
+Select sum(city.population) 
+from city 
+Join country on city.countrycode = country.code 
+where continent = 'Asia';
+
+----------------------------------------------------------------------------------
+
+/*
+Title: African Cities
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/african-cities/problem
+Dialect: MySQL 
+*/
+
+Select city.name 
+from city 
+Join country on city.countrycode = country.code where 
+continent = 'Africa';
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Average Population of Each Continent
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/average-population-of-each-continent/problem
+Dialect: MySQL 
+*/
+
+Select country.continent, floor(avg(city.population)) from country join city on city.countrycode = country.code group by country.continent;
