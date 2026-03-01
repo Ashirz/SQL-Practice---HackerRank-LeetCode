@@ -1,0 +1,14 @@
+/*
+Title: Weather Observation Station 9
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-9/problem
+Dialect: MySQL 
+*/
+
+
+
+
+Select distinct city 
+from station 
+where city like '[^aeiou]%';
