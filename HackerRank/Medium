@@ -1,0 +1,59 @@
+/*
+Title: The PADS
+Platform: HackerRank
+Category: Advance Select
+URL: https://www.hackerrank.com/challenges/the-pads/problem
+Dialect: MySQL 
+*/
+
+Select concat(Name,'(',left(occupation,1),')') 
+from occupations 
+order by name;
+Select concat('There are a total of ', count(occupation),' ',lower(occupation), 's.') 
+from occupations 
+Group by occupation 
+Order by count(occupation) asc, lower(occupation);
+
+/*
+Title: Occupations
+Platform: HackerRank
+Category: Advance Select
+URL: https://www.hackerrank.com/challenges/occupations/problem
+Dialect: MySQL 
+*/
+
+Select max(case when occupation = 'Doctor' then name else null end) as Doctor, 
+max(case when occupation = 'Professor' then name else null end) as Professor, 
+max(case when occupation = 'Singer' then name else null end) as Singer, 
+max(case when occupation = 'Actor' then name else null end) as Actor 
+from (Select name, occupation, row_number() over (partition by occupation order by name)as rowNum from occupations)as Table1 
+Group by rowNum 
+Order by rowNum;
+
+/*
+Title: Binary Tree Nodes
+Platform: HackerRank
+Category: Advance Select
+URL: https://www.hackerrank.com/challenges/binary-search-tree-1/problem
+Dialect: MySQL 
+*/
+
+Select n, case when p is null then 'Root' when n in (Select distinct p from bst where p is not null) then 'Inner' else 'Leaf' end 
+from bst order by n;
+
+/*
+Title: New Companies
+Platform: HackerRank
+Category: Advance Select
+URL: https://www.hackerrank.com/challenges/the-company/problem
+Dialect: MySQL 
+*/
+
+Select e.company_code, c.founder, 
+count(distinct lead_manager_code), 
+count(distinct senior_manager_code), count(distinct manager_code), count(distinct employee_code)
+from Employee e
+Join Company c on e.company_code = c.company_code
+Group by e.company_code, c.founder
+Order by e.company_code;
+
