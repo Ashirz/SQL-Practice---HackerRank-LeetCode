@@ -1,0 +1,11 @@
+/*
+Title: Weather Observation Station 1
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-1/problem
+Dialect: MySQL / DB2
+*/
+
+
+Select city, state 
+from station;
