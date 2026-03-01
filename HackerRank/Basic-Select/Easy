@@ -1,0 +1,162 @@
+/*
+Title: Revising the Select Query I
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/revising-the-select-query/problem
+Dialect: MySQL / DB2
+*/
+
+SELECT * 
+FROM city 
+WHERE population > 100000 
+  AND countrycode = 'USA';
+
+----------------------------------------------------------------------------------
+
+/*
+Title: Revising the Select Query II
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/revising-the-select-query-2/problem
+Dialect: MySQL / DB2
+*/
+
+Select name from city 
+where population >120000 and countrycode = 'USA';
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather Observation Station 1
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-1/problem
+Dialect: MySQL / DB2
+*/
+
+Select city, state 
+from station;
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather Observation Station 3
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-3/problem
+Dialect: MySQL / DB2
+*/
+
+SELECT DISTINCT city 
+FROM station 
+WHERE MOD(id, 2) = 0; 
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather Observation Station 4
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-4/problem
+Dialect: MySQL / DB2
+*/
+
+Select count(city) - count(distinct city) 
+from station;
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather Observation Station 6
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-6/problem
+Dialect: MySQL / DB2
+*/
+
+Select distinct city 
+from station 
+where left(city, 1) IN ('A','E','I','O','U','a','e','i','o','u');
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather Observation Station 7
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-7/problem
+Dialect: MySQL / DB2
+*/
+
+Select distinct city 
+from station 
+where right(city,1) in ('A','E','I','O','U','a','e','i','o','u');
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather Observation Station 8
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-8/problem
+Dialect: MySQL 
+*/
+
+Select distinct city 
+from station 
+where city REGEXP '^[aeiou]'and city REGEXP '[aeiou]$';
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather Observation Station 9
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-9/problem
+Dialect: MySQL 
+*/
+
+Select distinct city 
+from station 
+where city like '[^aeiou]%';
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather-observation-station-11
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-11/problem
+Dialect: MySQL 
+*/
+
+Select distinct city 
+from station 
+where city regexp "^[^aeiou]" or city regexp"[^aeiou]$" ;
+
+----------------------------------------------------------------------------------
+
+
+/*
+Title: Weather-observation-station-12
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-12/problem
+Dialect: MySQL 
+*/
+
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP "^[^aeiou]" AND CITY REGEXP "[^aeiou]$" ;
+
+----------------------------------------------------------------------------------
+
+
