@@ -1,0 +1,13 @@
+/*
+Title: Weather Observation Station 10 
+Platform: HackerRank
+Category: Basic Select
+URL: https://www.hackerrank.com/challenges/weather-observation-station-10/problem
+Dialect: MySQL 
+*/
+
+
+
+Select distinct city 
+from station 
+where right(city,1) not in('a','e','i','o','u')
