@@ -14,6 +14,8 @@ from occupations
 Group by occupation 
 Order by count(occupation) asc, lower(occupation);
 
+-----------------------------------------------------------------------------------------------------------------
+
 /*
 Title: Occupations
 Platform: HackerRank
@@ -30,6 +32,8 @@ from (Select name, occupation, row_number() over (partition by occupation order 
 Group by rowNum 
 Order by rowNum;
 
+-----------------------------------------------------------------------------------------------------------------
+
 /*
 Title: Binary Tree Nodes
 Platform: HackerRank
@@ -40,6 +44,8 @@ Dialect: MySQL
 
 Select n, case when p is null then 'Root' when n in (Select distinct p from bst where p is not null) then 'Inner' else 'Leaf' end 
 from bst order by n;
+
+-----------------------------------------------------------------------------------------------------------------
 
 /*
 Title: New Companies
@@ -57,3 +63,208 @@ Join Company c on e.company_code = c.company_code
 Group by e.company_code, c.founder
 Order by e.company_code;
 
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Weather Observation Station 18
+Platform: HackerRank
+Category: Aggregation
+URL: https://www.hackerrank.com/challenges/weather-observation-station-18/problem
+Dialect: MySQL 
+*/
+
+Select round(abs(max(lat_n)-min(lat_n)) + abs(max(long_w)-min(long_w)), 4) 
+from station; 
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Weather Observation Station 19
+Platform: HackerRank
+Category: Aggregation
+URL: https://www.hackerrank.com/challenges/weather-observation-station-19/problem
+Dialect: MySQL 
+*/
+
+Select round(sqrt((pow(max(lat_n)-min(lat_n),2) + pow(max(long_w)-min(long_w),2))), 4) 
+from station;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Weather Observation Station 20
+Platform: HackerRank
+Category: Aggregation
+URL: https://www.hackerrank.com/challenges/weather-observation-station-20/problem
+Dialect: MySQL 
+*/
+
+Select round(median(lat_n),4) 
+from station;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: The Report
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/the-report/problem
+Dialect: MySQL 
+*/
+
+Select case 
+when grade>=8 then name else 'NULL' END ,
+grade,marks 
+from Students 
+left join Grades on marks between min_mark and max_mark 
+order by grade desc,name asc;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Top Competitors
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/full-score/problem
+Dialect: MySQL 
+*/
+
+Select h.hacker_id, h.name 
+from hackers h 
+join submissions s on h.hacker_id = s.hacker_id 
+join challenges c on c.challenge_id=s.challenge_id 
+join difficulty d on d.difficulty_level = c.difficulty_level 
+where s.score= d.score 
+group by h.hacker_id, h.name 
+having count(h.hacker_id)>1 
+order by count(h.hacker_id) desc, h.hacker_id;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Ollivander's Inventory
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/harry-potter-and-wands/problem
+Dialect: MySQL 
+*/
+
+Select w.id, wp.age, w.coins_needed, w.power 
+from wands w 
+join wands_property wp on w.code = wp.code 
+where is_evil =0 and w.coins_needed = 
+(select min(w1.coins_needed) 
+from wands 
+w1 join wands_property wp1 on w1.code = wp1.code 
+where wp.age = wp1.age and w.power = w1.power) o
+rder by w.power desc, wp.age desc;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Challenges
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/challenges/problem
+Dialect: MySQL 
+*/
+
+Select h.hacker_id, h.name, count(c.challenge_id)as total_count 
+from hackers h 
+join challenges c on h.hacker_id = c.hacker_id 
+group by h.hacker_id, h.name 
+having total_count = (select max(cnt) from (select count(*) as cnt from challenges group by hacker_id)t1)
+or 
+total_count in (select cnt from(select count(*) as cnt from challenges group by hacker_id)t2 group by cnt having count(cnt)=1)
+ order by total_count desc, hacker_id;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Contest Leaderboard
+Platform: HackerRank
+Category: Basic Join
+URL: https://www.hackerrank.com/challenges/contest-leaderboard/problem
+Dialect: MySQL 
+*/
+
+Select h.hacker_id, h.name, sum(max_score) as total_score 
+from hackers h 
+join (Select hacker_id, challenge_id, max(score) as max_score from submissions group by hacker_id, challenge_id) s on h.hacker_id = s.hacker_id 
+Group by h.hacker_id,h.name 
+having total_score>0 
+Order by total_score desc, h.hacker_id;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: SQL Project Planning
+Platform: HackerRank
+Category: Advanced Join
+URL: https://www.hackerrank.com/challenges/sql-projects/problem
+Dialect: MySQL 
+*/
+
+With find_gaps as(Select *,case when lag(end_date) over(order by start_date)=start_date then 0 else 1 end as gap_marker from projects),
+task_group as( Select *, sum(gap_marker) over(order by start_date)as tasks from find_gaps)
+Select min(start_date), max(end_date) from task_group group by tasks
+Order by count(*),min(start_date);
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Placements
+Platform: HackerRank
+Category: Advanced Join
+URL: https://www.hackerrank.com/challenges/placements/problem
+Dialect: MySQL 
+*/
+
+Select s.Name
+from Students s
+join Friends f ON s.ID = f.ID
+join Packages p1 ON s.ID = p1.ID       -- Student's own salary
+join Packages p2 ON f.Friend_ID = p2.ID -- Friend's salary
+where p2.Salary > p1.Salary             -- Filter condition
+order by p2.Salary;                     -- Required for this challenge
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Symmetric Pairs
+Platform: HackerRank
+Category: Advanced Join
+URL: https://www.hackerrank.com/challenges/symmetric-pairs/problem
+Dialect: MySQL 
+*/
+
+Select f1.X, f1.Y
+from Functions f1
+join Functions f2 ON f1.X = f2.Y AND f1.Y = f2.X
+group by f1.X, f1.Y
+-- Ensure X < Y for distinct pairs, or check for multiple X=Y rows
+having f1.X < f1.Y OR COUNT(*) > 1
+order by f1.X;
+
+-----------------------------------------------------------------------------------------------------------------
+
+/*
+Title: Print Prime Numbers
+Platform: HackerRank
+Category: Alternative Queries
+URL: https://www.hackerrank.com/challenges/print-prime-numbers/problem
+Dialect: MySQL 
+*/
+
+With RECURSIVE numbers as(Select 2 as n 
+union all 
+Select n+1 from numbers 
+where n<1000)
+
+Select group_concat(n separator '&') from numbers t1 where not EXISTS 
+(Select 1 from numbers t2 
+where t2.n<=sqrt(t1.n) 
+and t1.n%t2.n =0 
+and t1.n<>t2.n);
+
+-----------------------------------------------------------------------------------------------------------------
