@@ -1,1 +1,19 @@
+Title: Top Travellers
+Platform: LeetCode
+URL: https://leetcode.com/problems/top-travellers/?envType=problem-list-v2&envId=ruvyhkjj
+Dialect: MySQL 
 
+Select u.name,ifnull(sum(r.distance),0) as travelled_distance 
+from users u left join rides r on u.id = r.user_id 
+group by u.id 
+order by 2 desc, 1 asc ;
+
+
+
+Title: Employees With Missing Information
+Platform: LeetCode
+URL: https://leetcode.com/problems/employees-with-missing-information/?envType=problem-list-v2&envId=ruvyhkjj
+Dialect: MySQL 
+
+Select employee_id from employees where employee_id not in (select employee_id from salaries) union
+Select employee_id from salaries where employee_id not in (select employee_id from employees) order by employee_id;
